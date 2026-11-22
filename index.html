@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@sobombr</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: #050000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    padding: 14px;
+    overflow-x: hidden;
+}
+
+.header {
+    max-width: 620px;
+    margin: 8px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    position: relative;
+    z-index: 5;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.telegram-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #ff3434, #790000);
+    border: 1px solid #ff4545;
+    box-shadow: 0 0 13px #ff1717, 0 0 27px #b90000;
+    font-size: 22px;
+}
+
+.brand-name {
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 0 0 12px #ff2020;
+}
+
+.channel {
+    font-size: 9px;
+    color: #ff7777;
+    margin-top: 3px;
+    letter-spacing: 2px;
+}
+
+.lang {
+    display: flex;
+    gap: 6px;
+}
+
+.lang button {
+    background: #100000;
+    border: 1px solid #8e1010;
+    color: #aaa;
+    border-radius: 8px;
+    padding: 7px 10px;
+    cursor: pointer;
+}
+
+.lang button.active {
+    color: white;
+    border-color: #ff3030;
+    box-shadow: 0 0 12px #ff2020;
+}
+
+.container {
+    width: 100%;
+    max-width: 570px;
+    margin: 48px auto 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-size: clamp(37px, 8vw, 53px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    text-shadow: 0 0 20px #ff2020, 0 0 45px #9b0000;
+}
+
+.subtitle {
+    color: #a77a7a;
+    margin-top: 9px;
+    font-size: 14px;
+}
+
+.card {
+    margin-top: 25px;
+    padding: 25px 19px;
+    border: 1px solid #9e1515;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #160000, #050000 65%);
+    box-shadow: 0 0 25px #d0000038,
+                inset 0 0 25px #75000020;
+    animation: appear .45s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.symbol {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #200000;
+    border: 1px solid #ff2929;
+    box-shadow: 0 0 17px #ff2020,
+                inset 0 0 15px #9e0000;
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 9px;
+}
+
+.description {
+    color: #a98c8c;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 17px;
+}
+
+.hint {
+    margin: 13px 0;
+    padding: 11px;
+    border: 1px solid #741313;
+    border-radius: 12px;
+    color: #ff9999;
+    font-size: 12px;
+    line-height: 1.5;
+    background: #100000;
+}
+
+.main-btn {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    margin: 12px auto 0;
+    padding: 15px 12px;
+    border: 1px solid #d51b1b;
+    border-radius: 15px;
+    background: linear-gradient(100deg, #190000, #350000, #190000);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 0 12px #d0000040;
+    transition: .2s;
+}
+
+.main-btn:hover {
+    border-color: #ff5555;
+    box-shadow: 0 0 24px #ff2020a0;
+    transform: translateY(-2px);
+}
+
+.link-box {
+    padding: 13px;
+    margin: 15px 0;
+    border: 1px solid #8d1717;
+    border-radius: 12px;
+    background: #100000;
+    color: #ffaaaa;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.footer {
+    color: #613030;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: 24px;
+}
+
+.ghost {
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px #ff1616)
+            drop-shadow(0 0 22px #b00000);
+    animation: ghostFlight 10s ease-in-out forwards;
+}
+
+@keyframes ghostFlight {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(.7);
+    }
+    20% { opacity: .7; }
+    50% {
+        opacity: .8;
+        transform: translate(35px,-30px) scale(1.1);
+    }
+    80% { opacity: .4; }
+    100% {
+        opacity: 0;
+        transform: translate(90px,-100px) scale(.7);
+    }
+}
+
+@media(max-width: 500px) {
+    .container { margin-top: 42px; }
+    .card { padding: 21px 14px; }
+    .brand-name { font-size: 17px; }
+    .main-btn { padding: 14px 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="brand">
+        <div class="telegram-icon">➤</div>
+        <div>
+            <div class="brand-name" id="brandName">@sobombr</div>
+            <div class="channel" id="channelLabel">ТГ КАНАЛ</div>
+        </div>
+    </div>
+
+    <div class="lang">
+        <button id="ruBtn" class="active" onclick="setLang('ru')">RU</button>
+        <button id="enBtn" onclick="setLang('en')">EN</button>
+    </div>
+</header>
+
+<main class="container">
+    <h1 id="heading">Переходник</h1>
+    <p class="subtitle" id="subtitle">Выберите нужный раздел</p>
+
+    <section class="card page active" id="home">
+        <div class="symbol">➤</div>
+        <h2 id="mainTitle">Наши боты</h2>
+        <p class="description" id="mainDescription">
+            Выберите нужный раздел ниже
+        </p>
+
+        <button class="main-btn" id="telegramButton"
+                onclick="openSingle('telegram')">
+            Бесплатный Бобмер смс💬
+        </button>
+
+        <button class="main-btn" id="snosButton"
+                onclick="showPage('snos')">
+            Бот для сноса ❄️
+        </button>
+
+        <button class="main-btn" id="probivButton"
+                onclick="openSingle('probiv')">
+            Бот для пробива 🔍
+        </button>
+    </section>
+
+    <section class="card page" id="snos">
+        <div class="symbol">❄️</div>
+        <h2 id="snosTitle">Бот для сноса</h2>
+
+        <div class="hint" id="snosHint">
+            Если бот 1 не работает, попробуйте бот 2.
+        </div>
+
+        <p class="description" id="chooseText">Выберите бота:</p>
+
+        <button class="main-btn" id="bot1Button"
+                onclick="openSnosBot(1)">Бот 1</button>
+
+        <button class="main-btn" id="bot2Button"
+                onclick="openSnosBot(2)">Бот 2</button>
+
+        <button class="main-btn" id="snosBack"
+                onclick="showPage('home')">Назад</button>
+    </section>
+
+    <section class="card page" id="snosDetails">
+        <div class="symbol">↗</div>
+        <h2 id="snosDetailTitle">Бот 1</h2>
+
+        <div class="hint" id="snosDetailHint"></div>
+
+        <p class="description" id="snosDetailDescription">
+            Ссылка на выбранного бота:
+        </p>
+
+        <div class="link-box" id="snosDetailLink"></div>
+
+        <button class="main-btn" id="snosOpenButton"
+                onclick="openSelected()">Открыть бота</button>
+
+        <button class="main-btn" id="snosCopyButton"
+                onclick="copySelected()">Скопировать ссылку</button>
+
+        <button class="main-btn" id="snosDetailsBack"
+                onclick="showPage('snos')">К выбору ботов</button>
+    </section>
+
+    <section class="card page" id="singleDetails">
+        <div class="symbol">↗</div>
+        <h2 id="singleTitle">Telegram-бот</h2>
+
+        <p class="description" id="singleDescription">
+            Ссылка на выбранного бота:
+        </p>
+
+        <div class="link-box" id="singleLink"></div>
+
+        <button class="main-btn" id="singleOpenButton"
+                onclick="openSelected()">Открыть</button>
+
+        <button class="main-btn" id="singleCopyButton"
+                onclick="copySelected()">Скопировать ссылку</button>
+
+        <button class="main-btn" id="singleBackButton"
+                onclick="showPage('home')">Назад</button>
+    </section>
+
+    <div class="footer">@SOBOMBR • TELEGRAM</div>
+</main>
+
+<script>
+/* =========================================
+   ВСЕ НАСТРОЙКИ — МЕНЯЙ ТОЛЬКО ЗДЕСЬ
+   ========================================= */
+
+const SETTINGS = {
+    brand: "@sobombr",
+    channelText: "ТГ КАНАЛ",
+
+    telegram: {
+        buttonText: "Бсплатныц Бомбер смс💬",
+        pageTitle: "Telegram-бот",
+        link: "https://t.me/SowufqApk_bot?start=emrik"
+    },
+
+    snos: {
+        buttonText: "Бот для сноса ❄️",
+        pageTitle: "Бот для сноса",
+
+        bot1: {
+            buttonText: "Бот 1",
+            link: ""
+        },
+
+        bot2: {
+            buttonText: "Бот 2",
+            link: ""
+        }
+    },
+
+    probiv: {
+        buttonText: "Бот для пробива 🔍",
+        pageTitle: "Бот для пробива",
+        link: ""
+    },
+
+    ghostImage: "Без названия18_20260909224116.png"
+};
+
+/* =========================================
+   ТЕКСТЫ И ПЕРЕВОД
+   ========================================= */
+
+const TEXT = {
+    ru: {
+        heading: "Переходник",
+        subtitle: "Выберите нужный раздел",
+        mainTitle: "Наши боты",
+        mainDescription: "Выберите нужный раздел ниже",
+        channel: "ТГ КАНАЛ",
+        snosHint: "Если бот 1 не работает, попробуйте бот 2.",
+        choose: "Выберите бота:",
+        linkDescription: "Ссылка на выбранного бота:",
+        open: "Открыть",
+        openBot: "Открыть бота",
+        copy: "Скопировать ссылку",
+        back: "Назад",
+        backBots: "К выбору ботов",
+        copied: "Ссылка скопирована!",
+        missing: "Ссылка пока не добавлена в настройки сайта.",
+        copyError: "Не удалось скопировать ссылку.",
+        tryBot1: "Если бот 1 не работает, попробуйте бот 2.",
+        tryBot2: "Если бот 2 не работает, попробуйте бот 1."
+    },
+    en: {
+        heading: "Redirect",
+        subtitle: "Choose a section",
+        mainTitle: "Our bots",
+        mainDescription: "Choose a section below",
+        channel: "TELEGRAM CHANNEL",
+        snosHint: "If bot 1 doesn't work, try bot 2.",
+        choose: "Choose a bot:",
+        linkDescription: "Link to the selected bot:",
+        open: "Open",
+        openBot: "Open bot",
+        copy: "Copy link",
+        back: "Back",
+        backBots: "Choose another bot",
+        copied: "Link copied!",
+        missing: "The link has not been added yet.",
+        copyError: "Could not copy the link.",
+        tryBot1: "If bot 1 doesn't work, try bot 2.",
+        tryBot2: "If bot 2 doesn't work, try bot 1."
+    }
+};
+
+let currentLang = "ru";
+let selectedLink = "";
+let selectedSnosBot = 1;
+
+function showPage(id) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function isLinkReady(link) {
+    return typeof link === "string" &&
+           link.startsWith("https://t.me/") &&
+           link.length > "https://t.me/".length;
+}
+
+function openSnosBot(number) {
+    selectedSnosBot = number;
+
+    const bot = number === 1
+        ? SETTINGS.snos.bot1
+        : SETTINGS.snos.bot2;
+
+    selectedLink = bot.link;
+
+    const t = TEXT[currentLang];
+
+    document.getElementById("snosDetailTitle").textContent =
+        currentLang === "ru" ? "Бот " + number : "Bot " + number;
+
+    document.getElementById("snosDetailHint").textContent =
+        number === 1 ? t.tryBot1 : t.tryBot2;
+
+    document.getElementById("snosDetailDescription").textContent =
+        t.linkDescription;
+
+    document.getElementById("snosDetailLink").textContent =
+        bot.link || "Ссылка не добавлена";
+
+    document.getElementById("snosOpenButton").textContent = t.openBot;
+    document.getElementById("snosCopyButton").textContent = t.copy;
+    document.getElementById("snosDetailsBack").textContent = t.backBots;
+
+    showPage("snosDetails");
+}
+
+function openSingle(type) {
+    const bot = SETTINGS[type];
+    selectedLink = bot.link;
+
+    document.getElementById("singleTitle").textContent =
+        bot.pageTitle;
+
+    document.getElementById("singleDescription").textContent =
+        TEXT[currentLang].linkDescription;
+
+    document.getElementById("singleLink").textContent =
+        bot.link || "Ссылка не добавлена";
+
+    document.getElementById("singleOpenButton").textContent =
+        TEXT[currentLang].open;
+
+    document.getElementById("singleCopyButton").textContent =
+        TEXT[currentLang].copy;
+
+    document.getElementById("singleBackButton").textContent =
+        TEXT[currentLang].back;
+
+    showPage("singleDetails");
+}
+
+function openSelected() {
+    if (!isLinkReady(selectedLink)) {
+        alert(TEXT[currentLang].missing);
+        return;
+    }
+
+    window.open(selectedLink, "_blank", "noopener,noreferrer");
+}
+
+async function copySelected() {
+    if (!isLinkReady(selectedLink)) {
+        alert(TEXT[currentLang].missing);
+        return;
+    }
+
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(selectedLink);
+        } else {
+            const input = document.createElement("textarea");
+            input.value = selectedLink;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            input.remove();
+        }
+
+        alert(TEXT[currentLang].copied);
+    } catch (error) {
+        alert(TEXT[currentLang].copyError);
+    }
+}
+
+function setLang(lang) {
+    currentLang = lang;
+    const t = TEXT[lang];
+
+    document.getElementById("ruBtn").classList.toggle(
+        "active", lang === "ru"
+    );
+    document.getElementById("enBtn").classList.toggle(
+        "active", lang === "en"
+    );
+
+    document.getElementById("brandName").textContent = SETTINGS.brand;
+    document.getElementById("channelLabel").textContent = t.channel;
+    document.getElementById("heading").textContent = t.heading;
+    document.getElementById("subtitle").textContent = t.subtitle;
+    document.getElementById("mainTitle").textContent = t.mainTitle;
+    document.getElementById("mainDescription").textContent =
+        t.mainDescription;
+
+    document.getElementById("telegramButton").textContent =
+        SETTINGS.telegram.buttonText;
+
+    document.getElementById("snosButton").textContent =
+        SETTINGS.snos.buttonText;
+
+    document.getElementById("probivButton").textContent =
+        SETTINGS.probiv.buttonText;
+
+    document.getElementById("snosTitle").textContent =
+        SETTINGS.snos.pageTitle;
+
+    document.getElementById("snosHint").textContent = t.snosHint;
+    document.getElementById("chooseText").textContent = t.choose;
+    document.getElementById("bot1Button").textContent =
+        SETTINGS.snos.bot1.buttonText;
+    document.getElementById("bot2Button").textContent =
+        SETTINGS.snos.bot2.buttonText;
+
+    document.getElementById("snosBack").textContent = t.back;
+
+    if (document.getElementById("snosDetails").classList.contains("active")) {
+        openSnosBot(selectedSnosBot);
+    }
+
+    if (document.getElementById("singleDetails").classList.contains("active")) {
+        document.getElementById("singleDescription").textContent =
+            t.linkDescription;
+        document.getElementById("singleOpenButton").textContent = t.open;
+        document.getElementById("singleCopyButton").textContent = t.copy;
+        document.getElementById("singleBackButton").textContent = t.back;
+    }
+}
+
+/* ПРИЗРАКИ */
+let activeGhosts = 0;
+
+function createGhost() {
+    if (activeGhosts >= 7) return;
+
+    activeGhosts++;
+
+    const ghost = document.createElement("img");
+    ghost.src = SETTINGS.ghostImage;
+    ghost.className = "ghost";
+    ghost.alt = "";
+
+    const size = 35 + Math.random() * 30;
+    ghost.style.width = size + "px";
+    ghost.style.height = size + "px";
+    ghost.style.left = Math.random() * 85 + "vw";
+    ghost.style.top = Math.random() * 85 + "vh";
+    ghost.style.animationDuration = (8 + Math.random() * 5) + "s";
+
+    document.body.appendChild(ghost);
+
+    ghost.addEventListener("animationend", () => {
+        ghost.remove();
+        activeGhosts--;
+    }, { once: true });
+
+    ghost.onerror = () => {
+        ghost.remove();
+        activeGhosts--;
+    };
+}
+
+setLang("ru");
+createGhost();
+setInterval(createGhost, 1500);
+</script>
+
+</body>
+</html>
